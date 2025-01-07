@@ -4,26 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    #region Serialized Fields
-
-    #endregion
-
-    #region Components
-
-    #endregion
-
-    #region Properties
-
-    #endregion
-
-    #region Fields
-
-    #endregion
-
-    #region Overrides
-
-    #endregion
-
     #region Public Helpers
 
     public void LoadMainMenu() => this.LoadScene(SceneEnum.MainMenu);
