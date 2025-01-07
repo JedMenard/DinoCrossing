@@ -21,6 +21,8 @@ public class PlayerInput : MonoBehaviour
 
     private Rigidbody2D playerRigidbody;
 
+    private Animator playerAnimator;
+
     #endregion
 
     #region Properties
@@ -33,6 +35,10 @@ public class PlayerInput : MonoBehaviour
 
     private bool IsMoving => this.destination.HasValue;
 
+    private Vector2? MoveVector => this.destination.HasValue
+        ? (this.destination.Value - this.playerRigidbody.position).normalized
+        : null;
+
     #endregion
 
     #region Overrides
@@ -40,6 +46,7 @@ public class PlayerInput : MonoBehaviour
     private void Awake()
     {
         this.playerRigidbody = this.GetComponent<Rigidbody2D>();
+        this.playerAnimator = this.GetComponent<Animator>();
     }
 
     private void Start()
@@ -49,6 +56,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
+        this.Animate();
         this.Move();
     }
 
@@ -59,31 +67,14 @@ public class PlayerInput : MonoBehaviour
             return;
         }
 
-        // Not moving.
-        Vector2 moveVector = input.Get<Vector2>();
-
-        if (moveVector.magnitude < this.moveSensitivity)
+        Vector2 inputVector = input.Get<Vector2>();
+        if (inputVector.magnitude < this.moveSensitivity)
         {
             return;
         }
 
-        moveVector.Normalize();
-
-        // Determine the angle.
-        float angle = Vector2.Angle(Vector2.right, moveVector);
-        if (moveVector.y < 0)
-        {
-            angle += 180;
-        }
-
-        // Round to the nearest 90 degrees.
-        angle += 45;
-        angle -= angle % 90;
-        float rads = angle * Mathf.Deg2Rad;
-
-        this.destination = this.playerRigidbody.position + new Vector2(Mathf.Cos(rads), Mathf.Sin(rads)) * this.moveDistance;
-
-        return;
+        // Set the target destination.
+        this.destination = this.playerRigidbody.position + inputVector.ToDirectionVector() * this.moveDistance;
     }
 
     #endregion
@@ -99,7 +90,17 @@ public class PlayerInput : MonoBehaviour
             if (Vector2.Distance(this.playerRigidbody.position, this.destination.Value) < float.Epsilon)
             {
                 this.destination = null;
+                this.playerAnimator.SetBool("isIdle", true);
             }
+        }
+    }
+
+    private void Animate()
+    {
+        this.playerAnimator.SetBool("isIdle", !this.IsMoving);
+        if (this.IsMoving)
+        {
+            this.playerAnimator.SetInteger("direction", (int)this.MoveVector.Value.ToDirectionEnum());
         }
     }
 
