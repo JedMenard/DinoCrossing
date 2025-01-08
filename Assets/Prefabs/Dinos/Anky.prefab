@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1118919910469878502, guid: 3d74c6a17fd098c4f875b6131b539a9e, type: 3}
+      propertyPath: moveDistance.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2705189162240827306, guid: 3d74c6a17fd098c4f875b6131b539a9e, type: 3}
       propertyPath: m_Name
       value: Anky
@@ -17,11 +21,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3317465891937112137, guid: 3d74c6a17fd098c4f875b6131b539a9e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -5.663498
       objectReference: {fileID: 0}
     - target: {fileID: 3317465891937112137, guid: 3d74c6a17fd098c4f875b6131b539a9e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.1625191
       objectReference: {fileID: 0}
     - target: {fileID: 3317465891937112137, guid: 3d74c6a17fd098c4f875b6131b539a9e, type: 3}
       propertyPath: m_LocalPosition.z
