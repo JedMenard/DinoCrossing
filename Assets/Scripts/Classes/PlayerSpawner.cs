@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 
 public class PlayerSpawner : MonoBehaviour
@@ -29,7 +30,11 @@ public class PlayerSpawner : MonoBehaviour
         this.gameSession = FindObjectOfType<GameSession>();
     }
 
-    private void Start() => Instantiate(PlayerPrefab, this.transform.position, Quaternion.identity);
+    private void Start()
+    {
+        GameObject player = Instantiate(this.PlayerPrefab, this.transform.position, Quaternion.identity);
+        FindObjectOfType<CinemachineVirtualCamera>().Follow = player.transform;
+    }
 
     #endregion
 

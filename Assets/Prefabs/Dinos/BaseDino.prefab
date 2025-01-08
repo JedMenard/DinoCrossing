@@ -178,5 +178,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 8
-  moveDistance: {x: 4, y: 8}
+  moveDistance: {x: 3, y: 3}
   moveSensitivity: 0.2
+  maxHorizontalMovement: 16
