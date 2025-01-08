@@ -90,6 +90,11 @@ public class PlayerInput : MonoBehaviour
         {
             this.destination = potentialDestination;
         }
+
+        if (inputVector.ToDirectionEnum() == DirectionEnum.Up)
+        {
+            FindObjectOfType<TileSpawner>().SpawnTiles();
+        }
     }
 
     #endregion
