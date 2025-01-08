@@ -44,6 +44,9 @@ TagManager:
   - name: Background
     uniqueID: 3050688963
     locked: 0
+  - name: FoliageAndObstacles
+    uniqueID: 1659296709
+    locked: 0
   - name: Character
     uniqueID: 1027477035
     locked: 0

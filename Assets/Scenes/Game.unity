@@ -253,10 +253,10 @@ MonoBehaviour:
   safeStartTiles: 5
   maxTileCount: 20
   prefabs:
-  - {fileID: 947887884330191941, guid: b79365871681b5847ab8d3789a2c25b7, type: 3}
-  - {fileID: 138287884200291778, guid: 7c430629c84d55144bc9c67fac935511, type: 3}
-  - {fileID: 2772348446091902232, guid: 70e6664b226d46843bccf48cbead9406, type: 3}
-  - {fileID: 5573098690985888633, guid: 4ea38a6240cc29d49b8e2fcef6163794, type: 3}
+  - {fileID: 8399183034750788507, guid: 9cd5380143470084389f03c56ca1a0e3, type: 3}
+  - {fileID: 8399183034750788507, guid: fda9d18bd963c67429313c63acb8013d, type: 3}
+  - {fileID: 8399183034750788507, guid: fbf88012392ebea46b5445a78c4584df, type: 3}
+  - {fileID: 8399183034750788507, guid: 2cb47afaf46ac8744b584e3db217c6db, type: 3}
 --- !u!1 &283598092
 GameObject:
   m_ObjectHideFlags: 0

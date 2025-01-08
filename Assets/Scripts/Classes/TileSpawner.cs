@@ -47,15 +47,15 @@ public class TileSpawner : MonoBehaviour
 
     #region Helpers
 
-    public void SpawnTiles(bool disablePopulator = false)
+    public void SpawnTiles(bool isSafeRow = false)
     {
         GameObject prefab = this.prefabs[Random.Range(0, this.prefabs.Count)];
         GameObject spawnedTiles = Instantiate(prefab, this.spawnPoint, Quaternion.identity, this.transform);
         this.tileQueue.Enqueue(spawnedTiles);
 
-        if (disablePopulator && spawnedTiles.TryGetComponent(out TilegridPopulator populator))
+        if (isSafeRow && spawnedTiles.TryGetComponent(out TilegridPopulator populator))
         {
-            populator.enabled = false;
+            populator.IsSafeRow = true;
         }
 
         this.spawnPoint += new Vector2(0, 3);

@@ -6,22 +6,42 @@ public class TilegridPopulator : MonoBehaviour
 {
     #region Serialized Fields
 
-    [SerializeField]
-    private List<GameObject> enemyPrefabs;
-
-    [SerializeField]
-    private List<GameObject> obstaclePrefabs;
-
-    [SerializeField]
-    [Range(0, 1)]
-    private float chanceOfEmptyRow = 0.5f;
+    [Header("Enemies")]
 
     [SerializeField]
     [Range(0, 1)]
     private float chanceOfEnemies = 0.5f;
 
     [SerializeField]
-    private float EnemySpawnRate = 5f;
+    private float enemySpawnRate = 5f;
+
+    [SerializeField]
+    private List<GameObject> enemyPrefabs;
+
+    [Header("Obstacles")]
+
+    [SerializeField]
+    [Range(0, 1)]
+    [Tooltip("Note: Obstacles will not spawn on layers with enemies.")]
+    private float chanceOfObstacles = 0.5f;
+
+    [SerializeField]
+    private float obstacleDensity = 3;
+
+    [SerializeField]
+    private List<GameObject> obstaclePrefabs;
+
+    [Header("Foliage")]
+
+    [SerializeField]
+    [Range(0, 1)]
+    private float chanceOfFoliage = 0.8f;
+
+    [SerializeField]
+    private float foliageDensity = 10f;
+
+    [SerializeField]
+    private List<GameObject> foliagePrefabs;
 
     #endregion
 
@@ -29,27 +49,25 @@ public class TilegridPopulator : MonoBehaviour
 
     private int? enemyPrefabIndex;
 
-    private int? obstaclePrefabIndex;
-
     private DirectionEnum enemyRunDirection;
+
+    private HashSet<Vector2Int> populatedSpaces = new HashSet<Vector2Int>();
+
+    private bool hasObstacles = false;
+
+    public bool IsSafeRow = false;
 
     #endregion
 
     #region Fields
 
-    private bool IsEmpty => !this.HasEnemies && !this.HasObstacles;
+    private bool IsEmpty => !this.HasEnemies && !this.hasObstacles;
 
     private bool HasEnemies => this.enemyPrefabIndex.HasValue;
-
-    private bool HasObstacles => this.obstaclePrefabIndex.HasValue;
 
     private GameObject EnemyPrefab => this.HasEnemies
         ? this.enemyPrefabs[this.enemyPrefabIndex.Value]
         : throw new System.Exception("Attempting to spawn enemies in a non-enemy tilegrid.");
-
-    private GameObject ObstaclePrefab => this.HasObstacles
-        ? this.obstaclePrefabs[this.obstaclePrefabIndex.Value]
-        : throw new System.Exception("Attempting to spawn obstacles in a non-obstacle tilegrid.");
 
     #endregion
 
@@ -57,24 +75,111 @@ public class TilegridPopulator : MonoBehaviour
 
     private void Start()
     {
-        if (Random.value < this.chanceOfEmptyRow)
-        {
-            this.enabled = false;
-            return;
-        }
-        else if (Random.value < this.chanceOfEnemies)
+        if (!this.IsSafeRow && Random.value < this.chanceOfEnemies)
         {
             this.StartCoroutine(this.StartSpawnLoop());
         }
-        else
+        else if (Random.value < this.chanceOfObstacles)
         {
-            this.obstaclePrefabIndex = (int)(Random.value * this.obstaclePrefabs.Count);
+            this.SpawnObstacles();
+        }
+
+        if (!this.hasObstacles && Random.value < this.chanceOfFoliage)
+        {
+            this.SpawnFoliage();
         }
     }
 
     #endregion
 
     #region Helpers
+
+    private void SpawnObstacles()
+    {
+        this.hasObstacles = true;
+        this.SpawnRandomObjects(this.obstacleDensity, this.obstaclePrefabs);
+    }
+
+    private void SpawnFoliage()
+        => this.SpawnRandomObjects(this.foliageDensity, this.foliagePrefabs);
+
+    private void SpawnRandomObjects(float density, List<GameObject> prefabs)
+    {
+        int objectCount = Random.Range(1, Mathf.RoundToInt(density));
+
+        for (int i = 0; i < objectCount; i++)
+        {
+            GameObject prefab = prefabs[Random.Range(0, prefabs.Count - 1)];
+            ShapeAndPositionInfo shapeAndPosition = prefab.GetComponent<ShapeAndPositionInfo>();
+            Vector2Int? spawnPoint = this.GetRandomOpenSpace(shapeAndPosition);
+
+            if (spawnPoint.HasValue)
+            {
+                Instantiate(prefab, (Vector2)this.transform.position + spawnPoint.Value, Quaternion.identity, this.transform);
+                this.MarkSpacesAsFilled(shapeAndPosition, spawnPoint.Value);
+            }
+        }
+    }
+
+    private Vector2Int? GetRandomOpenSpace(ShapeAndPositionInfo shapeAndPosition)
+    {
+        // Limit how many tries we make, in case we get stuck in an impossible loop.
+        for (int attempt = 0; attempt < 100; attempt++)
+        {
+            bool success = true;
+            int xVal = Random.Range(-15, 15);
+            int yVal = Random.Range(0, shapeAndPosition.OffsetVariance.y);
+
+            int xOffsetStart = shapeAndPosition.PositionOffset.x;
+            int xOffsetEnd = xOffsetStart + shapeAndPosition.Shape.x;
+            int yOffsetStart = shapeAndPosition.PositionOffset.y;
+            int yOffsetEnd = yOffsetStart + shapeAndPosition.Shape.y;
+
+            // Check if there's enough room for the entire shape.
+            for (int xOffset = xOffsetStart; xOffset < xOffsetEnd; xOffset++)
+            {
+                for (int yOffset = yOffsetStart; yOffset < yOffsetEnd; yOffset++)
+                {
+                    if (this.populatedSpaces.Contains(new Vector2Int(xVal + xOffset, yVal + shapeAndPosition.PositionOffset.y)))
+                    {
+                        // Not enough room, try again.
+                        success = false;
+                        break;
+                    }
+                }
+
+                // Check if we should fail out early.
+                if (!success)
+                {
+                    break;
+                }
+            }
+
+            if (success)
+            {
+                return new Vector2Int(xVal + shapeAndPosition.PositionOffset.x, yVal + shapeAndPosition.PositionOffset.y);
+            }
+        }
+
+        // The only way to get here is if we failed to find an open space 100 times.
+        // This is very unlikely, but we should still handle it elegantly.
+        return null;
+    }
+
+    private void MarkSpacesAsFilled(ShapeAndPositionInfo shapeAndPosition, Vector2Int startPoint)
+    {
+        for (int xOffset = 0; xOffset < shapeAndPosition.Shape.x; xOffset++)
+        {
+            for (int yOffset = 0; yOffset < shapeAndPosition.Shape.y; yOffset++)
+            {
+                this.populatedSpaces.Add(new Vector2Int(startPoint.x + xOffset, startPoint.y + yOffset));
+            }
+        }
+    }
+
+    #endregion
+
+    #region Coroutines
 
     private IEnumerator StartSpawnLoop()
     {
@@ -83,7 +188,7 @@ public class TilegridPopulator : MonoBehaviour
         this.enemyRunDirection = Random.value < 0.5f ? DirectionEnum.Left : DirectionEnum.Right;
 
         // Wait a random amount of time before spawning the first enemy.
-        yield return new WaitForSeconds(Random.value * this.EnemySpawnRate);
+        yield return new WaitForSeconds(Random.value * this.enemySpawnRate);
         this.StartCoroutine(this.SpawnLoop());
     }
 
@@ -92,7 +197,7 @@ public class TilegridPopulator : MonoBehaviour
         Vector2 spawnPoint = this.transform.position + new Vector3(18 * -this.enemyRunDirection.GetXSign(), 2);
         GameObject spawnedEnemy = Instantiate(this.EnemyPrefab, spawnPoint, Quaternion.identity, this.transform);
         spawnedEnemy.GetComponent<NpcMovement>().RunDirection = this.enemyRunDirection;
-        yield return new WaitForSeconds(this.EnemySpawnRate);
+        yield return new WaitForSeconds(this.enemySpawnRate);
         this.StartCoroutine(this.SpawnLoop());
     }
 

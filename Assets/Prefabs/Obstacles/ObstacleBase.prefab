@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6822820670777032712}
   - component: {fileID: 4495472980539901929}
-  - component: {fileID: 6811954437817476565}
   - component: {fileID: 7904880974278451361}
   - component: {fileID: -5117500093700701946}
+  - component: {fileID: -339869132394537445}
   m_Layer: 0
   m_Name: ObstacleBase
   m_TagString: Untagged
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1659296709
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -87,20 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6811954437817476565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3831813874811772898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8444ab1a2d170e47866fe26bb8b4ec8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  xOffset: 0
-  yOffset: 0
 --- !u!50 &7904880974278451361
 Rigidbody2D:
   serializedVersion: 4
@@ -148,3 +134,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.0001, y: 0.0001}
   m_EdgeRadius: 0
+--- !u!114 &-339869132394537445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3831813874811772898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8444ab1a2d170e47866fe26bb8b4ec8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Shape: {x: 1, y: 1}
+  PositionOffset: {x: 0, y: 2}
+  OffsetVariance: {x: 0, y: 0}

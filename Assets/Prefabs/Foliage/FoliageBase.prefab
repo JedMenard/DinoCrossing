@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9148416344328047385}
   - component: {fileID: 6311263534415545400}
+  - component: {fileID: 978849958728507869}
   m_Layer: 0
   m_Name: FoliageBase
   m_TagString: Untagged
@@ -70,8 +71,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1659296709
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -84,3 +85,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &978849958728507869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733633503206777633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8444ab1a2d170e47866fe26bb8b4ec8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Shape: {x: 1, y: 1}
+  PositionOffset: {x: 0, y: 1}
+  OffsetVariance: {x: 0, y: 3}
