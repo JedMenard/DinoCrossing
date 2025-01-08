@@ -23,7 +23,7 @@ public class TileSpawner : MonoBehaviour
 
     #region Properties
 
-    private Vector2 spawnPoint = new Vector2(0, -9);
+    private Vector2 spawnPoint = new Vector2(0, -11);
 
     private Queue<GameObject> tileQueue = new Queue<GameObject>();
 
@@ -59,7 +59,7 @@ public class TileSpawner : MonoBehaviour
         }
 
         this.spawnPoint += new Vector2(0, 3);
-        //FindObjectOfType<CinemachineConfiner>().InvalidatePathCache();
+        FindObjectOfType<CinemachineConfiner>().InvalidatePathCache();
 
         if (this.tileQueue.Count > this.maxTileCount)
         {

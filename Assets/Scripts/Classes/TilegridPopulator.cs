@@ -31,6 +31,8 @@ public class TilegridPopulator : MonoBehaviour
 
     private int? obstaclePrefabIndex;
 
+    private DirectionEnum enemyRunDirection;
+
     #endregion
 
     #region Fields
@@ -62,7 +64,6 @@ public class TilegridPopulator : MonoBehaviour
         }
         else if (Random.value < this.chanceOfEnemies)
         {
-            this.enemyPrefabIndex = (int)(Random.value * this.enemyPrefabs.Count);
             this.StartCoroutine(this.StartSpawnLoop());
         }
         else
@@ -77,6 +78,10 @@ public class TilegridPopulator : MonoBehaviour
 
     private IEnumerator StartSpawnLoop()
     {
+        // Set up enemy info.
+        this.enemyPrefabIndex = (int)(Random.value * this.enemyPrefabs.Count);
+        this.enemyRunDirection = Random.value < 0.5f ? DirectionEnum.Left : DirectionEnum.Right;
+
         // Wait a random amount of time before spawning the first enemy.
         yield return new WaitForSeconds(Random.value * this.EnemySpawnRate);
         this.StartCoroutine(this.SpawnLoop());
@@ -84,8 +89,9 @@ public class TilegridPopulator : MonoBehaviour
 
     private IEnumerator SpawnLoop()
     {
-        Vector2 spawnPoint = this.transform.position + new Vector3(18, 1);
-        Instantiate(this.EnemyPrefab, spawnPoint, Quaternion.identity, this.transform);
+        Vector2 spawnPoint = this.transform.position + new Vector3(18 * -this.enemyRunDirection.GetXSign(), 2);
+        GameObject spawnedEnemy = Instantiate(this.EnemyPrefab, spawnPoint, Quaternion.identity, this.transform);
+        spawnedEnemy.GetComponent<NpcMovement>().RunDirection = this.enemyRunDirection;
         yield return new WaitForSeconds(this.EnemySpawnRate);
         this.StartCoroutine(this.SpawnLoop());
     }

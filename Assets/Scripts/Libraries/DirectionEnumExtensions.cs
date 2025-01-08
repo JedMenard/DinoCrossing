@@ -74,4 +74,20 @@ public static class DirectionEnumExtensions
             return vector.x.IsPositive() ? DirectionEnum.Right : DirectionEnum.Left;
         }
     }
+
+    /// <summary>
+    /// Returns a signed integer representing the x portion of the direction.
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <returns></returns>
+    public static int GetXSign(this DirectionEnum direction)
+        => (int)Mathf.Sign(direction.ToDirectionVector().x);
+
+    /// <summary>
+    /// Returns a signed integer representing the y portion of the direction.
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <returns></returns>
+    public static int GetYSign(this DirectionEnum direction)
+        => (int)Mathf.Sign(direction.ToDirectionVector().y);
 }

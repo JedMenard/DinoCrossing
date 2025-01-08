@@ -19,6 +19,8 @@ public class NpcMovement : MonoBehaviour
 
     #region Properties
 
+    public DirectionEnum RunDirection = DirectionEnum.Left;
+
     #endregion
 
     #region Fields
@@ -35,9 +37,9 @@ public class NpcMovement : MonoBehaviour
 
     private void Start()
     {
-        this.npcAnimator.SetInteger("direction", 2);
+        this.npcAnimator.SetInteger("direction", (int)this.RunDirection);
         this.npcAnimator.SetBool("isIdle", false);
-        this.npcRigidbody.velocity = new Vector2(-this.moveSpeed, 0);
+        this.npcRigidbody.velocity = new Vector2(this.moveSpeed * this.RunDirection.GetXSign(), 0);
     }
 
     #endregion
