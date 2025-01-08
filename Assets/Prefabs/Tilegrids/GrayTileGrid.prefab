@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 138287884200291777}
   - component: {fileID: 138287884200291776}
   - component: {fileID: 6792624944288934574}
-  - component: {fileID: -3867023106935748877}
   m_Layer: 0
   m_Name: GrayTileGrid
   m_TagString: Untagged
@@ -69,27 +68,6 @@ MonoBehaviour:
   chanceOfEmptyRow: 0.5
   chanceOfEnemies: 0.5
   EnemySpawnRate: 5
---- !u!50 &-3867023106935748877
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 138287884200291778}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &138287885698178745
 GameObject:
   m_ObjectHideFlags: 0
