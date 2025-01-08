@@ -6,6 +6,8 @@ public class GameSession : MonoBehaviour
 
     private static GameSession instance;
 
+    public GameObject SelectedCharacter { get; private set; }
+
     #endregion
 
     #region Overrides
@@ -22,6 +24,15 @@ public class GameSession : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
+    }
+
+    #endregion
+
+    #region Helpers
+
+    public void SelectCharacter(GameObject characterPrefab)
+    {
+        this.SelectedCharacter = characterPrefab;
     }
 
     #endregion
