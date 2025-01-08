@@ -7,6 +7,9 @@ public class TileSpawner : MonoBehaviour
     #region Serialized Fields
 
     [SerializeField]
+    private int safeStartTiles = 5;
+
+    [SerializeField]
     private int maxTileCount = 10;
 
     [SerializeField]
@@ -20,7 +23,7 @@ public class TileSpawner : MonoBehaviour
 
     #region Properties
 
-    private Vector2 spawnPoint = new Vector2(0, 0);
+    private Vector2 spawnPoint = new Vector2(0, -9);
 
     private Queue<GameObject> tileQueue = new Queue<GameObject>();
 
@@ -34,9 +37,9 @@ public class TileSpawner : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < this.maxTileCount; i++)
         {
-            this.SpawnTiles();
+            this.SpawnTiles(i < this.safeStartTiles);
         }
     }
 
@@ -44,13 +47,19 @@ public class TileSpawner : MonoBehaviour
 
     #region Helpers
 
-    public void SpawnTiles()
+    public void SpawnTiles(bool disablePopulator = false)
     {
         GameObject prefab = this.prefabs[Random.Range(0, this.prefabs.Count)];
-        this.tileQueue.Enqueue(Instantiate(prefab, this.spawnPoint, Quaternion.identity, this.transform));
+        GameObject spawnedTiles = Instantiate(prefab, this.spawnPoint, Quaternion.identity, this.transform);
+        this.tileQueue.Enqueue(spawnedTiles);
+
+        if (disablePopulator && spawnedTiles.TryGetComponent(out TilegridPopulator populator))
+        {
+            populator.enabled = false;
+        }
 
         this.spawnPoint += new Vector2(0, 3);
-        FindObjectOfType<CinemachineConfiner>().InvalidatePathCache();
+        //FindObjectOfType<CinemachineConfiner>().InvalidatePathCache();
 
         if (this.tileQueue.Count > this.maxTileCount)
         {

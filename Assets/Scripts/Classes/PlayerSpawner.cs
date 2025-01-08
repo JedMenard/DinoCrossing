@@ -5,6 +5,9 @@ public class PlayerSpawner : MonoBehaviour
 {
     #region Serialized Fields
 
+    [SerializeField]
+    private GameObject defaultPlayerPrefab;
+
     #endregion
 
     #region Components
@@ -19,7 +22,7 @@ public class PlayerSpawner : MonoBehaviour
 
     #region Fields
 
-    private GameObject PlayerPrefab => this.gameSession.SelectedCharacter;
+    private GameObject PlayerPrefab => this.gameSession.SelectedCharacter != null ? this.gameSession.SelectedCharacter : this.defaultPlayerPrefab;
 
     #endregion
 

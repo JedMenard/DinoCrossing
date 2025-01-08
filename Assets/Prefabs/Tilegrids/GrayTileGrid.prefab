@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 138287884200291777}
   - component: {fileID: 138287884200291776}
+  - component: {fileID: 6792624944288934574}
+  - component: {fileID: -3867023106935748877}
   m_Layer: 0
   m_Name: GrayTileGrid
   m_TagString: Untagged
@@ -45,6 +47,49 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!114 &6792624944288934574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138287884200291778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c3b48ab4de25d4b96ca89f1da32607, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefabs:
+  - {fileID: 1809742264907119479, guid: 8a7368b51f339814ebbe2a54caa75d72, type: 3}
+  - {fileID: 411524350284526846, guid: ce23939a7b705964a8446342db66fffe, type: 3}
+  - {fileID: 7898157159545883525, guid: abe5400fa5a1b374f96889cb8304c193, type: 3}
+  - {fileID: 2889099146697639329, guid: 68e88f438ede852438c12ff13a1413bc, type: 3}
+  - {fileID: 2664784479726019304, guid: bb3468afc9c6f934facd3108169bf993, type: 3}
+  obstaclePrefabs: []
+  chanceOfEmptyRow: 0.5
+  chanceOfEnemies: 0.5
+  EnemySpawnRate: 5
+--- !u!50 &-3867023106935748877
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138287884200291778}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &138287885698178745
 GameObject:
   m_ObjectHideFlags: 0
