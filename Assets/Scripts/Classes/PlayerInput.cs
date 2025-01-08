@@ -14,6 +14,9 @@ public class PlayerInput : MonoBehaviour
     [SerializeField]
     private float moveSensitivity = 0.2f;
 
+    [SerializeField]
+    private int maxHorizontalMovement = 16;
+
     #endregion
 
     #region Components
@@ -66,14 +69,27 @@ public class PlayerInput : MonoBehaviour
             return;
         }
 
+        // Fetch the input.
         Vector2 inputVector = input.Get<Vector2>();
+
+        // Prevent the player from moving backwards.
+        inputVector.y = inputVector.y.IsNegative() ? 0 : inputVector.y;
+
+        // Allow for some input wiggle room.
         if (inputVector.magnitude < this.moveSensitivity)
         {
             return;
         }
 
         // Set the target destination.
-        this.destination = this.playerRigidbody.position + inputVector.ToDirectionVector() * this.moveDistance;
+        Vector2 potentialDestination = this.playerRigidbody.position + inputVector.ToDirectionVector() * this.moveDistance;
+
+        // Verify that the target is within legal bounds before moving.
+        if (Mathf.Abs(potentialDestination.x) < this.maxHorizontalMovement
+            && potentialDestination.y > 0)
+        {
+            this.destination = potentialDestination;
+        }
     }
 
     #endregion
