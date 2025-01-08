@@ -8,6 +8,8 @@ public class LevelManager : MonoBehaviour
 
     public void LoadMainMenu() => this.LoadScene(SceneEnum.MainMenu);
 
+    public void LoadGame() => this.LoadScene(SceneEnum.Game);
+
     public void LoadCredits() => this.LoadScene(SceneEnum.Credits);
 
     public IEnumerator LoadSceneWithDelay(string sceneName, float delay = 0)
