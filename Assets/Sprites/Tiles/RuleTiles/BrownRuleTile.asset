@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BrownRuleTile
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: 0}
-  m_DefaultGameObject: {fileID: 0}
+  m_DefaultGameObject: {fileID: 8055491698199282350, guid: e719635994e3a054f8a5c69c51d27f18, type: 3}
   m_DefaultColliderType: 1
   m_TilingRules:
   - m_Id: 0
