@@ -92,8 +92,8 @@ MonoBehaviour:
   - {fileID: 8566561673717636760, guid: 8e1e89fdcdea0e644aed928d4329db22, type: 3}
   - {fileID: 8566561673717636760, guid: ea3bf8bcb68cce346841d51b623b43db, type: 3}
   - {fileID: 8566561673717636760, guid: 4f11394c813d09f44b1c348870fedcbc, type: 3}
-  chanceOfFoliage: 0.8
-  foliageDensity: 10
+  chanceOfFoliage: 0.6
+  foliageDensity: 4
   foliagePrefabs:
   - {fileID: 4689573928032530253, guid: 567f36127c6e57c45bc48dae82c04bf3, type: 3}
   - {fileID: 4689573928032530253, guid: 788788034f8a65049ac39d87679d1764, type: 3}

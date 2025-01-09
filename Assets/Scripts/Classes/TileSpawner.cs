@@ -23,7 +23,7 @@ public class TileSpawner : MonoBehaviour
 
     #region Properties
 
-    private Vector2 spawnPoint = new Vector2(0, -11);
+    private Vector2 spawnPoint = new Vector2(0, -10.5f);
 
     private Queue<GameObject> tileQueue = new Queue<GameObject>();
 

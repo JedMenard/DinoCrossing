@@ -111,17 +111,17 @@ public class TilegridPopulator : MonoBehaviour
         {
             GameObject prefab = prefabs[Random.Range(0, prefabs.Count - 1)];
             ShapeAndPositionInfo shapeAndPosition = prefab.GetComponent<ShapeAndPositionInfo>();
-            Vector2Int? spawnPoint = this.GetRandomOpenSpace(shapeAndPosition);
+            Vector2? spawnPoint = this.GetRandomOpenSpace(shapeAndPosition);
 
             if (spawnPoint.HasValue)
             {
                 Instantiate(prefab, (Vector2)this.transform.position + spawnPoint.Value, Quaternion.identity, this.transform);
-                this.MarkSpacesAsFilled(shapeAndPosition, spawnPoint.Value);
+                this.MarkSpacesAsFilled(shapeAndPosition, new Vector2Int((int)spawnPoint.Value.x, (int)spawnPoint.Value.y));
             }
         }
     }
 
-    private Vector2Int? GetRandomOpenSpace(ShapeAndPositionInfo shapeAndPosition)
+    private Vector2? GetRandomOpenSpace(ShapeAndPositionInfo shapeAndPosition)
     {
         // Limit how many tries we make, in case we get stuck in an impossible loop.
         for (int attempt = 0; attempt < 100; attempt++)
@@ -157,7 +157,9 @@ public class TilegridPopulator : MonoBehaviour
 
             if (success)
             {
-                return new Vector2Int(xVal + shapeAndPosition.PositionOffset.x, yVal + shapeAndPosition.PositionOffset.y);
+                float xPos = xVal + shapeAndPosition.PositionOffset.x + 0.5f;
+                float yPos = yVal + shapeAndPosition.PositionOffset.y + 0.5f;
+                return new Vector2(xPos, yPos);
             }
         }
 
@@ -194,7 +196,7 @@ public class TilegridPopulator : MonoBehaviour
 
     private IEnumerator SpawnLoop()
     {
-        Vector2 spawnPoint = this.transform.position + new Vector3(18 * -this.enemyRunDirection.GetXSign(), 2);
+        Vector2 spawnPoint = this.transform.position + new Vector3(18 * -this.enemyRunDirection.GetXSign(), 1.5f);
         GameObject spawnedEnemy = Instantiate(this.EnemyPrefab, spawnPoint, Quaternion.identity, this.transform);
         spawnedEnemy.GetComponent<NpcMovement>().RunDirection = this.enemyRunDirection;
         yield return new WaitForSeconds(this.enemySpawnRate);
