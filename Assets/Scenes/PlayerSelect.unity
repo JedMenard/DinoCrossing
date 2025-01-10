@@ -394,7 +394,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3890989993096311819, guid: 7d88e175ff88d274dbde4fb76a0726b9, type: 3}
       propertyPath: m_text
-      value: I'm not racist I swear
+      value: Pachio
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d88e175ff88d274dbde4fb76a0726b9, type: 3}
@@ -1965,7 +1965,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3890989993096311819, guid: 7d88e175ff88d274dbde4fb76a0726b9, type: 3}
       propertyPath: m_text
-      value: Veloci
+      value: Velocy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d88e175ff88d274dbde4fb76a0726b9, type: 3}
