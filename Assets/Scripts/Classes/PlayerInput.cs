@@ -98,12 +98,12 @@ public class PlayerInput : MonoBehaviour
             && raycastHit2D.collider == null)
         {
             this.destination = potentialDestination;
-        }
 
-        if (inputVector.ToDirectionEnum() == DirectionEnum.Up)
-        {
-            this.scoreKeeper.IncrementScore();
-            FindObjectOfType<TileSpawner>().SpawnTiles();
+            if (inputVector.ToDirectionEnum() == DirectionEnum.Up)
+            {
+                this.scoreKeeper.IncrementScore();
+                FindObjectOfType<TileSpawner>().SpawnTiles();
+            }
         }
     }
 
