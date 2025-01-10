@@ -25,6 +25,8 @@ public class PlayerInput : MonoBehaviour
 
     private Animator playerAnimator;
 
+    private ScoreKeeper scoreKeeper;
+
     #endregion
 
     #region Properties
@@ -49,6 +51,7 @@ public class PlayerInput : MonoBehaviour
     {
         this.playerRigidbody = this.GetComponent<Rigidbody2D>();
         this.playerAnimator = this.GetComponent<Animator>();
+        this.scoreKeeper = FindObjectOfType<ScoreKeeper>();
     }
 
     private void Start()
@@ -99,6 +102,7 @@ public class PlayerInput : MonoBehaviour
 
         if (inputVector.ToDirectionEnum() == DirectionEnum.Up)
         {
+            this.scoreKeeper.IncrementScore();
             FindObjectOfType<TileSpawner>().SpawnTiles();
         }
     }
