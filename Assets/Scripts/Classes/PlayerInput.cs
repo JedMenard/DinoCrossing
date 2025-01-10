@@ -82,11 +82,17 @@ public class PlayerInput : MonoBehaviour
         }
 
         // Set the target destination.
-        Vector2 potentialDestination = this.playerRigidbody.position + inputVector.ToDirectionVector() * this.moveDistance;
+        Vector2 moveDirection = inputVector.ToDirectionVector();
+        Vector2 potentialMoveVector = moveDirection * this.moveDistance;
+        Vector2 potentialDestination = this.playerRigidbody.position + potentialMoveVector;
 
-        // Verify that the target is within legal bounds before moving.
+        // Verify that the target is within legal bounds and check for collisions.
+        RaycastHit2D raycastHit2D = Physics2D.Raycast(this.transform.position,
+            potentialMoveVector,
+            potentialMoveVector.magnitude,
+            LayerMask.GetMask("Obstacles"));
         if (Mathf.Abs(potentialDestination.x) < this.maxHorizontalMovement
-            && potentialDestination.y > 0)
+            && raycastHit2D.collider == null)
         {
             this.destination = potentialDestination;
         }

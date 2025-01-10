@@ -74,8 +74,6 @@ MonoBehaviour:
   - {fileID: 8566561673717636760, guid: effa3bb2aa0104c4587bfc0659c871fc, type: 3}
   - {fileID: 8566561673717636760, guid: 2f0d6528cfe0b96448f97a9ad4316d1f, type: 3}
   - {fileID: 8566561673717636760, guid: 6336eebde8a5bf34abef6fe0fcb84c9a, type: 3}
-  - {fileID: 8566561673717636760, guid: 29ea5fa94b04fc84797f50511e15d00f, type: 3}
-  - {fileID: 8566561673717636760, guid: fb32da957f6eb29429d68832206ad783, type: 3}
   - {fileID: 8566561673717636760, guid: 159910cc7c0ee22409cfce04cf74035e, type: 3}
   - {fileID: 8566561673717636760, guid: b0d316a46a22ef34cbc39c06604a7f3f, type: 3}
   - {fileID: 8566561673717636760, guid: 55bfaad1007484b44b6e834da14b8657, type: 3}
@@ -93,7 +91,7 @@ MonoBehaviour:
   - {fileID: 8566561673717636760, guid: ea3bf8bcb68cce346841d51b623b43db, type: 3}
   - {fileID: 8566561673717636760, guid: 4f11394c813d09f44b1c348870fedcbc, type: 3}
   chanceOfFoliage: 0.6
-  foliageDensity: 4
+  foliageDensity: 6
   foliagePrefabs:
   - {fileID: 4689573928032530253, guid: 567f36127c6e57c45bc48dae82c04bf3, type: 3}
   - {fileID: 4689573928032530253, guid: 788788034f8a65049ac39d87679d1764, type: 3}

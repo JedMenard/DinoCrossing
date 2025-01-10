@@ -42,6 +42,12 @@ public class NpcMovement : MonoBehaviour
         this.npcRigidbody.velocity = new Vector2(this.moveSpeed * this.RunDirection.GetXSign(), 0);
     }
 
+    private void Update()
+    {
+        this.transform.localPosition = new Vector2(this.transform.localPosition.x, 0);
+        this.npcRigidbody.velocity = new Vector2(this.moveSpeed * this.RunDirection.GetXSign(), 0);
+    }
+
     #endregion
 
     #region Helpers

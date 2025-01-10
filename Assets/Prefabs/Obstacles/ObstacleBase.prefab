@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7904880974278451361}
   - component: {fileID: -5117500093700701946}
   - component: {fileID: -339869132394537445}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ObstacleBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3831813874811772898}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -103,7 +103,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 6bed053b87d64f14fa4655feda7d620b, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -117,7 +117,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 3831813874811772898}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 6bed053b87d64f14fa4655feda7d620b, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -132,7 +132,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.0001, y: 0.0001}
+  m_Size: {x: 1.2, y: 1.2}
   m_EdgeRadius: 0
 --- !u!114 &-339869132394537445
 MonoBehaviour:
@@ -147,5 +147,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Shape: {x: 1, y: 1}
-  PositionOffset: {x: 0, y: 1}
+  PositionOffset: {x: 0, y: 0}
   OffsetVariance: {x: 0, y: 0}

@@ -97,13 +97,13 @@ public class TilegridPopulator : MonoBehaviour
     private void SpawnObstacles()
     {
         this.hasObstacles = true;
-        this.SpawnRandomObjects(this.obstacleDensity, this.obstaclePrefabs);
+        this.SpawnRandomObjects(this.obstacleDensity, this.obstaclePrefabs, true);
     }
 
     private void SpawnFoliage()
         => this.SpawnRandomObjects(this.foliageDensity, this.foliagePrefabs);
 
-    private void SpawnRandomObjects(float density, List<GameObject> prefabs)
+    private void SpawnRandomObjects(float density, List<GameObject> prefabs, bool snapToGrid = false)
     {
         int objectCount = Random.Range(1, Mathf.RoundToInt(density));
 
@@ -111,7 +111,7 @@ public class TilegridPopulator : MonoBehaviour
         {
             GameObject prefab = prefabs[Random.Range(0, prefabs.Count - 1)];
             ShapeAndPositionInfo shapeAndPosition = prefab.GetComponent<ShapeAndPositionInfo>();
-            Vector2? spawnPoint = this.GetRandomOpenSpace(shapeAndPosition);
+            Vector2? spawnPoint = this.GetRandomOpenSpace(shapeAndPosition, snapToGrid);
 
             if (spawnPoint.HasValue)
             {
@@ -121,14 +121,14 @@ public class TilegridPopulator : MonoBehaviour
         }
     }
 
-    private Vector2? GetRandomOpenSpace(ShapeAndPositionInfo shapeAndPosition)
+    private Vector2? GetRandomOpenSpace(ShapeAndPositionInfo shapeAndPosition, bool snapToGrid = false)
     {
         // Limit how many tries we make, in case we get stuck in an impossible loop.
         for (int attempt = 0; attempt < 100; attempt++)
         {
             bool success = true;
-            int xVal = Random.Range(-15, 15);
-            int yVal = Random.Range(0, shapeAndPosition.OffsetVariance.y);
+            int xVal = snapToGrid ? Random.Range(-5, 5) * 3 : Random.Range(-15, 15);
+            int yVal = Random.Range(-shapeAndPosition.OffsetVariance.y, shapeAndPosition.OffsetVariance.y + 1);
 
             int xOffsetStart = shapeAndPosition.PositionOffset.x;
             int xOffsetEnd = xOffsetStart + shapeAndPosition.Shape.x;
@@ -157,8 +157,8 @@ public class TilegridPopulator : MonoBehaviour
 
             if (success)
             {
-                float xPos = xVal + shapeAndPosition.PositionOffset.x + 0.5f;
-                float yPos = yVal + shapeAndPosition.PositionOffset.y + 0.5f;
+                float xPos = xVal + shapeAndPosition.PositionOffset.x;
+                float yPos = yVal + shapeAndPosition.PositionOffset.y;
                 return new Vector2(xPos, yPos);
             }
         }
@@ -196,7 +196,7 @@ public class TilegridPopulator : MonoBehaviour
 
     private IEnumerator SpawnLoop()
     {
-        Vector2 spawnPoint = this.transform.position + new Vector3(18 * -this.enemyRunDirection.GetXSign(), 1.5f);
+        Vector2 spawnPoint = this.transform.position + new Vector3(18 * -this.enemyRunDirection.GetXSign(), 0);
         GameObject spawnedEnemy = Instantiate(this.EnemyPrefab, spawnPoint, Quaternion.identity, this.transform);
         spawnedEnemy.GetComponent<NpcMovement>().RunDirection = this.enemyRunDirection;
         yield return new WaitForSeconds(this.enemySpawnRate);
