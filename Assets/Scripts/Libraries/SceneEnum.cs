@@ -3,5 +3,6 @@
     MainMenu,
     PlayerSelect,
     Game,
+    GameOver,
     Credits,
 }

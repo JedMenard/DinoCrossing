@@ -12,7 +12,15 @@ public class LevelManager : MonoBehaviour
 
     public void LoadGame() => this.LoadScene(SceneEnum.Game);
 
+    public void LoadGameOver(float delay = 0) => this.StartCoroutine(this.LoadSceneWithDelay(SceneEnum.GameOver, delay));
+
     public void LoadCredits() => this.LoadScene(SceneEnum.Credits);
+
+    public IEnumerator LoadSceneWithDelay(SceneEnum scene, float delay = 0)
+    {
+        yield return new WaitForSeconds(delay);
+        this.LoadScene(scene);
+    }
 
     public IEnumerator LoadSceneWithDelay(string sceneName, float delay = 0)
     {

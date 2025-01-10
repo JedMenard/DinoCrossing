@@ -3,6 +3,12 @@ using UnityEngine;
 
 public class ScoreText : MonoBehaviour
 {
+    [SerializeField]
+    private string scorePreface = "Score:";
+
+    [SerializeField]
+    private bool separateWithNewline = false;
+
     private ScoreKeeper scoreKeeper;
 
     private TextMeshProUGUI scoreText;
@@ -15,6 +21,6 @@ public class ScoreText : MonoBehaviour
 
     private void Update()
     {
-        this.scoreText.text = "Score: " + this.scoreKeeper.Score;
+        this.scoreText.text = this.scorePreface + (this.separateWithNewline ? '\n' : "") + this.scoreKeeper.Score;
     }
 }
