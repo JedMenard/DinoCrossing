@@ -12,6 +12,12 @@ public static class DirectionEnumExtensions
     {
         vector.Normalize();
 
+        // For empty vectors, return the original.
+        if (vector.magnitude == 0)
+        {
+            return vector;
+        }
+
         // Determine the angle.
         float angle = Vector2.Angle(Vector2.right, vector);
         if (vector.y.IsNegative())

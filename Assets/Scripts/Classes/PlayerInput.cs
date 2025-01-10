@@ -12,9 +12,6 @@ public class PlayerInput : MonoBehaviour
     private Vector2 moveDistance = new Vector2(2, 2);
 
     [SerializeField]
-    private float moveSensitivity = 0.2f;
-
-    [SerializeField]
     private int maxHorizontalMovement = 16;
 
     #endregion
@@ -31,7 +28,9 @@ public class PlayerInput : MonoBehaviour
 
     #region Properties
 
-    Vector2? destination = new Vector2();
+    private Vector2? destination = new Vector2();
+
+    private DirectionEnum moveDirection = DirectionEnum.None;
 
     #endregion
 
@@ -67,44 +66,12 @@ public class PlayerInput : MonoBehaviour
 
     private void OnMove(InputValue input)
     {
-        if (this.IsMoving)
-        {
-            return;
-        }
-
         // Fetch the input.
         Vector2 inputVector = input.Get<Vector2>();
 
         // Prevent the player from moving backwards.
-        inputVector.y = inputVector.y.IsNegative() ? 0 : inputVector.y;
-
-        // Allow for some input wiggle room.
-        if (inputVector.magnitude < this.moveSensitivity)
-        {
-            return;
-        }
-
-        // Set the target destination.
-        Vector2 moveDirection = inputVector.ToDirectionVector();
-        Vector2 potentialMoveVector = moveDirection * this.moveDistance;
-        Vector2 potentialDestination = this.playerRigidbody.position + potentialMoveVector;
-
-        // Verify that the target is within legal bounds and check for collisions.
-        RaycastHit2D raycastHit2D = Physics2D.Raycast(this.transform.position,
-            potentialMoveVector,
-            potentialMoveVector.magnitude,
-            LayerMask.GetMask("Obstacles"));
-        if (Mathf.Abs(potentialDestination.x) < this.maxHorizontalMovement
-            && raycastHit2D.collider == null)
-        {
-            this.destination = potentialDestination;
-
-            if (inputVector.ToDirectionEnum() == DirectionEnum.Up)
-            {
-                this.scoreKeeper.IncrementScore();
-                FindObjectOfType<TileSpawner>().SpawnTiles();
-            }
-        }
+        DirectionEnum directionEnum = inputVector.ToDirectionEnum();
+        this.moveDirection = directionEnum == DirectionEnum.Down ? DirectionEnum.None : directionEnum;
     }
 
     #endregion
@@ -113,6 +80,8 @@ public class PlayerInput : MonoBehaviour
 
     private void Move()
     {
+        this.ManageDestination();
+
         if (this.destination.HasValue)
         {
             this.playerRigidbody.position = Vector2.MoveTowards(this.playerRigidbody.position, this.destination.Value, this.moveSpeed * Time.deltaTime);
@@ -122,6 +91,42 @@ public class PlayerInput : MonoBehaviour
                 this.destination = null;
                 this.playerAnimator.SetBool("isIdle", true);
             }
+        }
+    }
+
+    private void ManageDestination()
+    {
+        // Nothing to do if we're already moving.
+        if (this.destination.HasValue || this.moveDirection == DirectionEnum.None)
+        {
+            return;
+        }
+
+        // Determine the new destination.
+        Vector2 potentialMoveVector = this.moveDirection.ToDirectionVector() * this.moveDistance;
+        Vector2 potentialDestination = this.playerRigidbody.position + potentialMoveVector;
+
+        // Verify that the target is within legal bounds and check for collisions.
+        RaycastHit2D raycastHit2D = Physics2D.Raycast(this.transform.position,
+            potentialMoveVector,
+            potentialMoveVector.magnitude,
+            LayerMask.GetMask("Obstacles"));
+
+        if (Mathf.Abs(potentialDestination.x) < this.maxHorizontalMovement
+            && raycastHit2D.collider == null)
+        {
+            this.destination = potentialDestination;
+
+            if (this.moveDirection == DirectionEnum.Up)
+            {
+                this.scoreKeeper.IncrementScore();
+                FindObjectOfType<TileSpawner>().SpawnTiles();
+            }
+        }
+        else
+        {
+            // Moving in this direction is invalid. Stop moving.
+            this.moveDirection = DirectionEnum.None;
         }
     }
 
