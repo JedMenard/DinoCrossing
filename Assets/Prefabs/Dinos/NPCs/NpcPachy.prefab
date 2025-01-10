@@ -65,7 +65,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6139075487050707129, guid: b82eadb04cbd71c49b9a7bbfaf76b3e6, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1844501085227740841, guid: b82eadb04cbd71c49b9a7bbfaf76b3e6, type: 3}
@@ -76,6 +76,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3139510218229942968, guid: b82eadb04cbd71c49b9a7bbfaf76b3e6, type: 3}
   m_PrefabInstance: {fileID: 5046885914786054461}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2263028851367098103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7898157159545883525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdd85bc9485300343875f3c0af8866b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverDelay: 2
 --- !u!114 &6697108668908049394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,16 +115,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   RunDirection: 2
---- !u!114 &2263028851367098103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7898157159545883525}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdd85bc9485300343875f3c0af8866b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameOverDelay: 2

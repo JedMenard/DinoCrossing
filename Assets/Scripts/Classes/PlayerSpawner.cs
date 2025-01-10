@@ -18,6 +18,8 @@ public class PlayerSpawner : MonoBehaviour
 
     private GameSession gameSession;
 
+    private ScoreKeeper scoreKeeper;
+
     #endregion
 
     #region Fields
@@ -31,10 +33,12 @@ public class PlayerSpawner : MonoBehaviour
     private void Awake()
     {
         this.gameSession = FindObjectOfType<GameSession>();
+        this.scoreKeeper = FindObjectOfType<ScoreKeeper>();
     }
 
     private void Start()
     {
+        this.scoreKeeper.ResetScore();
         GameObject player = Instantiate(this.PlayerPrefab, this.transform.position, Quaternion.identity);
         FindObjectOfType<CinemachineVirtualCamera>().Follow = player.transform;
     }

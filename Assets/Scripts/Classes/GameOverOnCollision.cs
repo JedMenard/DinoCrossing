@@ -13,8 +13,6 @@ public class GameOverOnCollision : MonoBehaviour
         this.levelManager = FindObjectOfType<LevelManager>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) => this.ProcessCollision(collision.gameObject);
-
     private void OnCollisionEnter2D(Collision2D collision) => this.ProcessCollision(collision.gameObject);
 
     private void ProcessCollision(GameObject collision)
